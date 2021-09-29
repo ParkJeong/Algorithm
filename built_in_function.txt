@@ -1,0 +1,19 @@
+### ord
+return the unicode value of the character
+
+```python
+ord('a')		# 97
+type(ord('a'))	# <class 'int'>
+ord('가')		# 44032
+type(ord('가'))	# <class 'int'>
+```
+
+### chr
+return the character of the unicode value
+
+```python
+chr(97)		# 'a'
+type(chr(97))	# <class 'str'>
+chr(44032)	# '가'
+type(chr(44032))	# <class 'str'>
+```

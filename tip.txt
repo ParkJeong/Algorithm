@@ -32,3 +32,19 @@ start_time = time.time() # start measuring
 end_time = time.time() # end measuring
 print("time :", end_time - start_time) # print the performance time
 ```
+
+### Brute-Force Algorithm(완전 탐색 알고리즘)
+Brute-Force Algorithm is used when the number of datas is under than 1 million.
+
+
+### number in Python
+```python
+1_000 == 1000 	# True
+10_000 == 10000	# True
+```
+
+### String operation
+```python
+'3' + '5' + '9'	# 359
+'3' in '3' + '5' + '9'	# True
+```
