@@ -48,3 +48,39 @@ Brute-Force Algorithm is used when the number of datas is under than 1 million.
 '3' + '5' + '9'	# 359
 '3' in '3' + '5' + '9'	# True
 ```
+
+
+### 입력
+```
+import sys
+line = sys.stdin.readline()
+# 개행문자가 포함되어 있다.
+```
+
+
+### dict operation
+```
+a = dict()
+a.get(1,0)
+-> key중에 1이 없으면 0을 반환한다.
+```
+
+### from collections import Counter
+```
+a = Counter("122333")
+>> a
+Counter({'3': 3, '2': 2, '1': 1})
+
+>> a.get(4,0)
+0
+>> a[3]
+0
+>> a["3"]
+3
+```
+
+
+디버깅 팁
+print를 못하면 file이나 directory를 만들면 된다!
+안되는 것을 하나씩 쪼개보자!
+하나씩 확인!
