@@ -1,10 +1,10 @@
-test_cases = int(input())
+import sys
+test_cases = int(sys.stdin.readline())
 
 nums = list()
 for _ in range(test_cases):
-    nums.append(int(input()))
+    nums.append(int(sys.stdin.readline()))
 
-for element in sorted(nums):
-    print(element)
+nums.sort()
+print(*nums, sep="\n")
     
-    n
