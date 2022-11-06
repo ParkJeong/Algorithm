@@ -1,3 +1,31 @@
+# 2트
+import sys
+import time
+
+start_time = time.time()
+#########################
+n = int(sys.stdin.readline())
+
+moves = sys.stdin.readline().split()
+start_x = 1
+start_y = 1
+for move in moves:
+    if move == "R" and start_x < n:
+        start_x += 1
+    if move == "D" and start_y < n:
+        start_y += 1
+    if move == "L" and start_x > 1:
+        start_x -= 1
+    if move == "U" and start_y > 1:
+        start_y -= 1
+
+print(start_x, start_y)
+#######################
+end_time = time.time()
+print(f"time:{end_time - start_time}")
+
+
+
 len = int(input())
 moveList = input().split() # moveList
 

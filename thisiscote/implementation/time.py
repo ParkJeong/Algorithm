@@ -1,3 +1,50 @@
+# 2트
+import time
+import sys
+
+start_time = time.time()
+#######################
+n = int(sys.stdin.readline())
+three_not_in_hour = (5 * 9 * 5 * 2 + 5 * 9 * 9 * 2) + (5 * 9 * 4 + 5 * 5 + 9 * 9) + (5 * 2 + 9 * 2) + 1
+three_in_hour = 6 * 10 * 6 * 10
+
+count = 0
+for h in range(n + 1):
+    for m in range(60):
+        for s in range(60):
+            candidate = f"{h}{m}{s}"
+            if "3" in candidate:
+                count += 1
+
+
+# 03 xx xx
+# 13
+# 23
+
+# 03 xx xx
+# xxx3 595
+# xx3x 599
+# x3xx 559
+# 3xxx 959
+
+# 33xx 59
+# 3x3x 99
+# 3xx3 95
+# x33x 59
+# x3x3 55
+# xx33 59
+
+# 333x 9
+# 33x3 5
+# 3x33 9
+# x333 5
+
+# 3333
+
+#######################
+end_time = time.time()
+
+
 target = int(input())
 
 # 답안

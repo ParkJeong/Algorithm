@@ -1,3 +1,37 @@
+# 2트
+import time
+import sys
+
+start_time = time.time()
+#####################
+# 정원은 8x8
+pos = sys.stdin.readline().rstrip()
+
+X = "abcdefgh"
+Y = "12345678"
+
+pos_x = X.find(pos[0])
+pos_y = X.find(pos[1])
+
+DIRECTION_X = [2, 2, 1, 1, -1, -1, -2, -2]
+DIRECTION_Y = [-1, 1, -2, 2, -2, 2, -1, 1]
+
+count = 0
+for direction_x, direction_y in zip(DIRECTION_X, DIRECTION_Y):
+    new_x = pos_x + direction_x
+    new_y = pos_y + direction_y
+    if 0 <= new_x < 8 and 0 <= new_y < 8:
+        count += 1
+print(count)
+
+
+
+########################
+end_time = time.time()
+
+print(f"time: {end_time - start_time}")
+
+
 loc = input()
 
 # 답안
