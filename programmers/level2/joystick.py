@@ -28,23 +28,80 @@ def solution(name):
         plan.append(min(ord(ch) - ord("A"), ord("Z") - ord(ch) + 1))
 
     length = len(name)
-    count = length - plan.count(0)
-    visited = [False for _ in range(length)]
-
-    # 초깃값
-    count -= 0 if plan[0] == 0 else 1
-    answer = plan[0]
-    visited[0] = True
-
+    answer = 0
     # 매번 가장 가까운 곳으로 이동
     # 왼쪽으로 가장 가까운 곳 a, 먼 곳 b
     # 오른쪽으로 가장 가까운 곳 c, 먼 곳 d
     # min(min(b, d) * 2 + max(b, d), length - d) + 알파벳 변환
-    #
+
+    def find_the_nearest_position():
+        now = 0
+        right = 0
+        left = 0
+
+        for right_idx in range(length):
+            if plan[now] != 0:
+                right = right_idx
+                break
+        for left_idx in range(0, -length, -1):
+            if plan[now] != 0:
+                left = left_idx
+                break
+        return left, right
+
+    def find_the_furthest_position():
+        now = 0
+        right = 0
+        left = 0
+
+        for right_idx in range(-1, -(length + 1), -1):
+            if plan[now] != 0:
+                right = right_idx
+                break
+        for left_idx in range(1, length):
+            if plan[now] != 0:
+                left = left_idx
+                break
+        return left, right
+
+    furthest_left_pos, furthest_right_pos = find_the_furthest_position()
+    furthest_right_pos = furthest_right_pos if furthest_right_pos >= 0 else length + furthest_right_pos
+
+    distance_from_furthest_left_pos = furthest_left_pos
+    distance_from_furthest_right_pos = furthest_right_pos
+    # 매번 가장 가까운 곳으로 이동
+    # 왼쪽으로 가장 가까운 곳 a, 먼 곳 b
+    # 오른쪽으로 가장 가까운 곳 c, 먼 곳 d
+    # min(min(b, d) * 2 + max(b, d), length - d) + 알파벳 변환
+    # 왼쪽으로 가장 먼 것과 오른쪽으로 가장 먼 것 사이에 있는 경우 처리가 안됨 -> JEROEN의 경우
+    move = min(
+        min(
+            distance_from_furthest_left_pos,
+            distance_from_furthest_right_pos
+        ) * 2
+        + max(distance_from_furthest_left_pos, distance_from_furthest_right_pos),
+        min(
+            length - distance_from_furthest_left_pos,
+            length - distance_from_furthest_right_pos
+        )
+    )
+
+
     #
     # 완전탐색으로도 풀어보기
     answer += sum(plan)
+    answer += move
     return answer
 
 
-solution("JEROEN")
+# A -> J : 9
+# A -> N : 13
+# A -> E : 4
+# A -> R : 17  -> 9
+# ZYXWVUTSRQPONML
+# A -> O : 14 -> 12
+# 이동 2
+# print(solution("JAN"))
+# 9 + 4 + 9 + 12 + 4 + 13
+# 51 + 5(이동)
+print(solution("JEROEN"))
