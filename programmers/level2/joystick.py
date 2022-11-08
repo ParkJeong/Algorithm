@@ -27,70 +27,30 @@ def solution(name):
     for ch in name:
         plan.append(min(ord(ch) - ord("A"), ord("Z") - ord(ch) + 1))
 
+    answer = sum(plan)
     length = len(name)
-    answer = 0
     # 매번 가장 가까운 곳으로 이동
-    # 왼쪽으로 가장 가까운 곳 a, 먼 곳 b
-    # 오른쪽으로 가장 가까운 곳 c, 먼 곳 d
-    # min(min(b, d) * 2 + max(b, d), length - d) + 알파벳 변환
+    # 그 중 최솟값을 구한다.
+    candidates = set()
 
-    def find_the_nearest_position():
-        now = 0
-        right = 0
-        left = 0
+    def dfs(now_position, total_move, new_plan):
+        new_plan[now_position] = 0
+        if total_move >= length:
+            return
+        if new_plan.count(0) == length:
+            candidates.add(total_move)
 
-        for right_idx in range(length):
-            if plan[now] != 0:
-                right = right_idx
-                break
-        for left_idx in range(0, -length, -1):
-            if plan[now] != 0:
-                left = left_idx
-                break
-        return left, right
+        for next_move in [-1, 1]:
+            next_position = now_position + next_move
+            if next_position == -1:
+                next_position = length - 1
+            elif next_position == length:
+                next_position = 0
+            temp_plan = new_plan[:]
+            dfs(next_position, total_move + 1, temp_plan)
 
-    def find_the_furthest_position():
-        now = 0
-        right = 0
-        left = 0
-
-        for right_idx in range(-1, -(length + 1), -1):
-            if plan[now] != 0:
-                right = right_idx
-                break
-        for left_idx in range(1, length):
-            if plan[now] != 0:
-                left = left_idx
-                break
-        return left, right
-
-    furthest_left_pos, furthest_right_pos = find_the_furthest_position()
-    furthest_right_pos = furthest_right_pos if furthest_right_pos >= 0 else length + furthest_right_pos
-
-    distance_from_furthest_left_pos = furthest_left_pos
-    distance_from_furthest_right_pos = furthest_right_pos
-    # 매번 가장 가까운 곳으로 이동
-    # 왼쪽으로 가장 가까운 곳 a, 먼 곳 b
-    # 오른쪽으로 가장 가까운 곳 c, 먼 곳 d
-    # min(min(b, d) * 2 + max(b, d), length - d) + 알파벳 변환
-    # 왼쪽으로 가장 먼 것과 오른쪽으로 가장 먼 것 사이에 있는 경우 처리가 안됨 -> JEROEN의 경우
-    move = min(
-        min(
-            distance_from_furthest_left_pos,
-            distance_from_furthest_right_pos
-        ) * 2
-        + max(distance_from_furthest_left_pos, distance_from_furthest_right_pos),
-        min(
-            length - distance_from_furthest_left_pos,
-            length - distance_from_furthest_right_pos
-        )
-    )
-
-
-    #
-    # 완전탐색으로도 풀어보기
-    answer += sum(plan)
-    answer += move
+    dfs(0, 0, plan)
+    answer += min(candidates)
     return answer
 
 
@@ -104,4 +64,6 @@ def solution(name):
 # print(solution("JAN"))
 # 9 + 4 + 9 + 12 + 4 + 13
 # 51 + 5(이동)
-print(solution("JEROEN"))
+# ABAAAAAAAAABB
+# print(solution("JEROEN"))
+print(solution("ABAAAAAAAAABB")) # 3 + 4
