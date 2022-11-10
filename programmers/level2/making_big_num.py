@@ -9,16 +9,38 @@
 from collections import deque
 
 def solution(number, k):
-    answer = ''
+
+    answer = ""
     # stack을 이용해서 구현해보기
+    temp_deque = deque()
+    temp_deque.append(number[0])
+    count = 0
+    for num in number[1:]:
+        while temp_deque and temp_deque[-1] < num and count < k:
+            temp_deque.pop()
+            count += 1
+        temp_deque.append(num)
+
+    for temp_num in temp_deque:
+        answer += temp_num
+
+    return answer if count == k else answer[:-(k - count)]
 
 
-    return number
 
+print(solution("4321", 3))
+print(solution("4321", 2))
+print(solution("4321", 1))
 
-# print(solution("1924", 2))
+print(solution("1334", 3))
+print(solution("1334", 2))
+print(solution("1334", 1))
 
-# print(solution("1231234", 3))
+print(solution("1234", 3))
+print(solution("1234", 2))
+print(solution("1234", 1))
+
+print(solution("1231234", 3))
 
 print(solution("4177252841", 4))
-print(solution("1111", 4))
+print(solution("1111", 2))
